@@ -1,6 +1,9 @@
 plugins {
     application
     checkstyle
+    java
+    jacoco
+    id("com.github.spotbugs") version "6.0.26"
 }
 
 repositories {
@@ -44,3 +47,13 @@ tasks.register<Zip>("zipJavaDoc") {
     destinationDirectory.set(layout.buildDirectory.dir("archives")) // Директория, куда будет сохранен архив
 }
 
+tasks.spotbugsMain {
+    reports.create("html") {
+        required = true
+        outputLocation.set(layout.buildDirectory.file("reports/spotbugs/spotbugs.html"))
+    }
+}
+
+tasks.test {
+    finalizedBy(tasks.spotbugsMain)
+}

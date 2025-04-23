@@ -24,3 +24,6 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
+        cache: gradle
+    - name: build
+      run: gradle build
